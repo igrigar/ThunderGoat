@@ -2,20 +2,10 @@ import os
 import sys
 from telegram import Updater
 
-def start(bot, update):
-	bot.sendMessage(update.message.chat_id, text='I will kill ya all')
-
 def main():
-	
+
 	bot_dir = os.path.dirname(os.path.realpath(__file__))[:-3]
-	
-	# Import all modules.
-	sys.path.append(bot_dir+'plugins/')
-	for module in os.listdir(os.path.dirname(bot_dir+'plugins/')):
-		if module == '__init__.py' or module[-3:] != '.py':
-			continue
-		__import__(module[:-3], locals(), globals())
-	del module
+	plugin_dir = bot_dir+'plugins/'
 	
 	# Get bot auth token. 
 	token = ''
@@ -27,14 +17,34 @@ def main():
 	updater = Updater(token)
 	dp = updater.dispatcher
 	
+	# Import all modules.
+	sys.path.append(bot_dir)
+	import plugins
 
-	# Loading modules to the bot.
-	dp.addTelegramCommandHandler('start', start)
-	dp.addTelegramCommandHandler('echo', echo)
+	# Parse all the files for the function names, I'm not really a fan of this, but it works.
+	for module in os.listdir(os.path.dirname(plugin_dir)):
+		if module == '__init__.py' or module[-3:] != '.py':
+			continue
+		with open(plugin_dir+module, 'r') as f:
+			for line in f:
+				if line[:3] != 'def':
+					continue
+				command = line[4:].split('(', 1)[0]
+				mod = 'plugins.'+module[:-3]
 
+				# For debug purposes print the loaded functions and the module they belong.
+				print command+' '+ mod
+								
+				var = sys.modules[mod]
+				handler = getattr(var, command)
+
+				# Add all functions from all modules to the dispatcher.
+				dp.addTelegramCommandHandler(command, handler)
+		f.close()
+	del module	
+	
 	updater.start_polling()
 	updater.idle()	
-
 
 if __name__ == '__main__':
 	main()
