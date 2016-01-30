@@ -20,7 +20,7 @@ def set(bot, update):
 
     # Check for the current entries archive
     # In case this chat doesn't have an archive yet, we create and initialize it
-    if not (os.path.isfile(path + filename):
+    if not (os.path.isfile(path + filename)):
         # Check for the folder
         if not os.path.exists(path):
             os.makedirs(path)
