@@ -14,7 +14,7 @@ def set(bot, update):
         bot.sendMessage(update.message.chat_id, text="Bad format. Correct format is '/set [key]:[value]'")
         return
 
-    path = os.path.realpath(__file__))[:-7] + "/data/get-set"
+    path = os.path.realpath(__file__)[:-7] + "/data/get-set"
     filename = "/archive" + str(update.message.chat_id) + ".json"
     correct = 0
 
