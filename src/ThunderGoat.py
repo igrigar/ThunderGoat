@@ -46,7 +46,7 @@ def main():
                         # For debug purposes print the loaded functions and the module they belong.
                         print 'From module:', mod, 'Function:', command, var
                     if var == 'message':
-            dp.addTelegramMessageHandler(handler)
+                        dp.addTelegramMessageHandler(handler)
                         # For debug purposes print the loaded functions and the module they belong.
                         print 'From module:', mod, 'Function:', command, var
                     if var == 'daemon':
