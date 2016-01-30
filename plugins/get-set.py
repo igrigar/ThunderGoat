@@ -52,7 +52,7 @@ def get(bot, update):
     hand:command
     '''
 
-    if (os.path.isfile(path + filename):
+    if (os.path.isfile(path + filename)):
         path = os.path.realpath(__file__))[:-7] + "/data/get-set/archive" + str(update.message.chat_id) + ".json"
         # Open the archive
         archive = open(path).read()
