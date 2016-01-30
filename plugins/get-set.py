@@ -53,9 +53,10 @@ def get(bot, update):
     '''
 
     if (os.path.isfile(path + filename)):
-        path = os.path.realpath(__file__)[:-7] + "/data/get-set/archive" + str(update.message.chat_id) + ".json"
+        path = os.path.realpath(__file__)[:-7] + "/data/get-set"
+        filename = "/archive" + str(update.message.chat_id) + ".json"
         # Open the archive
-        archive = open(path).read()
+        archive = open(path+filename).read()
         # Parse JSON
         dic = json.loads(archive)
         # Obtain the value for the given key if it exists
