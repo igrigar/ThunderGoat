@@ -38,7 +38,7 @@ def set(bot, update):
         # Obtain the value for the given key if it exists
     dic[update.message.text['values'][5:update.message.text.index(":")-1]] = update.message.text[update.message.text.index(":")+1:]
         # Update the file
-    with open('my_file.json', 'w+') as writable
+    with open('my_file.json', 'w+') as writable:
         writable.write(json.dumps(dic))
 
     # return success
