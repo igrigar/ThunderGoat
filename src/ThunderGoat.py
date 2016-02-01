@@ -3,6 +3,7 @@ import sys
 import logging
 from telegram import Updater
 
+
 def main():
 
     bot_dir = os.path.dirname(os.path.realpath(__file__))[:-3]
@@ -16,6 +17,8 @@ def main():
     # Creating the updater and the dispatcher.
     updater = Updater(token)
     dp = updater.dispatcher
+
+    daemon_queue = updater.job_queue
 
     # Import all modules.
     sys.path.append(bot_dir)
@@ -46,12 +49,15 @@ def main():
                         # For debug purposes print the loaded functions and the module they belong.
                         print 'From module:', mod, 'Function:', command, var
                     if var == 'message':
-            dp.addTelegramMessageHandler(handler)
+                        dp.addTelegramMessageHandler(handler)
                         # For debug purposes print the loaded functions and the module they belong.
                         print 'From module:', mod, 'Function:', command, var
-                    if var == 'daemon':
-                        handler()
-                        print 'From module:', mod, 'Function:', command, var
+                    if var.split(':')[0] == 'daemon':
+                        periodic = True
+                        if int(var.split(':')[1].rstrip()) == 0:
+                            periodic = False
+                        daemon_queue.put(handler, int(var.split(':')[1].rstrip()), repeat=periodic)
+                        print 'From module:', mod, 'Function:', command, var, 't(s):', var.split(':')[1].rstrip()
 
     del module
 
