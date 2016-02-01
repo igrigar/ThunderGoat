@@ -30,11 +30,13 @@ def main():
             continue
         with open(plugin_dir+module, 'r') as f:
             for line in f:
+
                 line = line.replace(' ', '')
+                line = line.replace('\t', '')
+
                 if line[:3] == 'def':
                     command = line[3:].split('(', 1)[0]
                     mod = 'plugins.'+module[:-3]
-
 
                     # Create the handler.
                     var = sys.modules[mod]
@@ -42,8 +44,9 @@ def main():
                     continue
 
                 # Check if the command requires a command or a message handler.
-                if line.split(':', 1)[0] == 'Hand':
+                if line.split(':', 1)[0].lower() == 'hand':
                     var = line.split(':', 1)[1].rstrip()
+
                     if var == 'command':
                         dp.addTelegramCommandHandler(command, handler)
                         # For debug purposes print the loaded functions and the module they belong.
@@ -68,7 +71,7 @@ def main():
 
     logger = logging.getLogger(__name__)
 
-
+    # Starting the bot itself.
     updater.start_polling()
     updater.idle()
 
