@@ -3,7 +3,7 @@ import json
 
 def set(bot, update):
     """
-    Assings a value to a key. Command format: key, value
+    Description: Assings a value to a key. Command format: key, value
     hand:command
     """
 
@@ -47,10 +47,10 @@ def set(bot, update):
 
 
 def get(bot, update):
-    '''
-    Obtains the key for a certain value.
+    """
+    Description: Obtains the key for a certain value.
     hand:command
-    '''
+    """
 
     if (os.path.isfile(path + filename)):
         path = os.path.realpath(__file__)[:-7] + "/data/get-set"

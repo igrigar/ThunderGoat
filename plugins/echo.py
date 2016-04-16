@@ -1,5 +1,5 @@
 def echo(bot, update):
-    """ 
+    """
     Description: echoes the string that follows the command /echo.
     Hand: command
     """
