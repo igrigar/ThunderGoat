@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf8 -*-
+
 import json
 import os
 import random
@@ -40,7 +43,7 @@ def addquote(bot, update):
     # Create the file in case it does not exist.
     if os.path.isfile(quotes_path) == False:
         with open(quotes_path, 'w') as f:
-            f.write(json.dumps({}, ensure_ascii=True))
+            f.write(json.dumps({}, indent=2, ensure_ascii=True))
 
     with open(quotes_path, 'r+') as f:
         quotes = json.load(f)
@@ -52,7 +55,7 @@ def addquote(bot, update):
             quotes[group].append(update.message.text[10:])
 
         f.seek(0)
-        f.write(json.dumps(quotes, ensure_ascii=True))
+        f.write(json.dumps(quotes, indent=2, ensure_ascii=True))
         f.truncate()
 
     bot.sendMessage(update.message.chat_id, text="New quote added!")

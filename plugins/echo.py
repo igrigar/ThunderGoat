@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf8 -*-
+
 def echo(bot, update):
     """
     Description: echoes the string that follows the command /echo.

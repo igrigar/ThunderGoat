@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf8 -*-
+
 import os
 from operator import itemgetter
 import json
@@ -66,7 +69,7 @@ def spam_checkpoint(bot):
     """
 
     with open(backup_file, 'w') as f:
-        f.write(json.dumps(spam_rank, ensure_ascii=True))
+        f.write(json.dumps(spam_rank, indent=2, ensure_ascii=True))
 
 
 def spam_load(bot):

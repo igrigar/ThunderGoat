@@ -23,14 +23,18 @@ If you want to contribute to this project, please follow these rules:
 
 3. Once you develop and test your code, you can ask for a **pull request**. Pull requests would only be accepted if:
 
-   - The name of the new function is representative and is not used before.
+  - All the files to be pushed must have the following shebang:
+  ```
+  #!/usr/bin/env python
+  # -*- coding: utf8 -*-
+  ```
 
-   - The code does **not use tab characters**. Please use 4 spaces instead. A tool like autopep8 can be used.
+  - The name of the new function is representative and is not used before.
 
-   - The new function contains a multi-line comment (using Python's `"""`) right after the definition of the function, with:
+  - The code does **not use tab characters**. Please use 4 spaces instead. A tool like autopep8 can be used.
 
-     - A short description of the function.
-     - A new line that contains: `hand: command` if it is a command function (using `/`), `hand: message` if it is a message reader or `hand: daemom : t` to create
-     a periodic task every *t* seconds.
+  - The new function contains a multi-line comment (using Python's `"""`) right after the definition of the function, with:
 
-     ​
+    - A short description of the function.
+    - A new line that contains: `hand: command` if it is a command function (using `/`), `hand: message` if it is a message reader or `hand: daemom : t` to create
+    a periodic task every *t* seconds.
