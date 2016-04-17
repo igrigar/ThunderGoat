@@ -6,6 +6,7 @@ from operator import itemgetter
 import json
 
 spam_rank = {}
+
 backup_file = os.path.dirname(os.path.realpath(__file__))[
     :-7] + 'data/spam_backup.json'
 
@@ -47,16 +48,17 @@ def stats(bot, update):
 
     msg = ''
     group = str(update.message.chat_id)
+    podium = 1
 
     if spam_rank.has_key(group) == False:
         bot.sendMessage(update.message.chat_id,
             text='There are no stats in this conversation. Let the spam start!!')
         return
 
-    sorted_rank = sorted(spam_rank[group], key=itemgetter(1), reverse=True)
+    sorted_rank = sorted(spam_rank[group].items(), key=itemgetter(1), reverse=True)
 
     for user in sorted_rank:
-        msg += user + ':\t' + str(spam_rank[group][user]) + '\n'
+        msg += str(user[0]) + ':\t' + str(user[1]) + '\n'
 
     bot.sendMessage(update.message.chat_id, text=msg)
 
@@ -64,7 +66,7 @@ def stats(bot, update):
 def spam_checkpoint(bot):
     """
     Description: save the current stats in case the bot goes down to have some
-                backup in the file spam_backup.json.
+        backup in the file spam_backup.json.
     Hand: daemon : 30
     """
 
